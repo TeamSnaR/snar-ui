@@ -2,7 +2,11 @@
   "name": "@snar-ui/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "affected:build": "nx affected --target=build",
+    "affected:lint": "nx affected --target=lint",
+    "affected:test": "nx affected --target=test"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.2.0",
