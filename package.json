@@ -5,7 +5,9 @@
   "scripts": {
     "affected:build": "nx affected --target=build",
     "affected:lint": "nx affected --target=lint",
-    "affected:test": "nx affected --target=test"
+    "affected:test": "nx affected --target=test",
+    "format:check": "nx format:check --uncommitted",
+    "format:write": "nx format:write --uncommitted"
   },
   "private": true,
   "dependencies": {
