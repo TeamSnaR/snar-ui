@@ -7,7 +7,7 @@
     "affected:build": "nx affected --target=build --uncommitted",
     "affected:lint": "nx affected --target=lint --uncommitted",
     "affected:test": "nx affected --target=test --uncommitted",
-    "affected": "nx affected -t lint test build --uncommitted",
+    "affected": "nx affected -t lint test build --uncommitted --parallel=5",
     "format:check": "nx format:check --uncommitted",
     "format:write": "nx format:write --uncommitted",
     "prepare": "husky install"

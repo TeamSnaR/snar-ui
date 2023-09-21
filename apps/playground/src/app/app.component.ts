@@ -1,9 +1,7 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   Directive,
-  Host,
   HostBinding,
   HostListener,
   Input,
