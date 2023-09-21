@@ -6,8 +6,4 @@
 
 @layer components {
   @import '@angular/cdk/overlay-prebuilt.css';
-
-  .snar-ui-slide-over-dialog {
-    @apply bg-white;
-  }
 }

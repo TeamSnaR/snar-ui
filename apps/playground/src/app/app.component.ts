@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Directive,
+  Host,
   HostBinding,
   HostListener,
   Input,
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   openSlideOver() {
-    return this.dialog.open(DialogContentComponent, {
+    return this.dialog.open(SignupFormSlideOverComponent, {
       panelClass: [
         'h-full',
         'pointer-events-auto',
@@ -59,6 +60,14 @@ export class AppComponent implements OnInit {
       container: SnarUiDialogContainerComponent,
     });
   }
+}
+
+@Directive({
+  selector: `snar-ui-dialog-header, [snar-ui-dialog-header], [snarUiDialogHeader]`,
+  standalone: true,
+})
+export class SnarUiDialogHeaderDirective {
+  @HostBinding() class = 'flex items-center justify-between px-4 sm:px-6 py-6';
 }
 
 @Directive({
@@ -84,102 +93,123 @@ export class SnarUiDialogCloseDirective {
   dialogRef = inject(DialogRef);
 }
 @Component({
-  selector: 'snar-ui-dialog-container',
   standalone: true,
   imports: [PortalModule],
   template: ` <ng-template cdkPortalOutlet></ng-template> `,
   styles: [
     `
       :host {
-        display: block;
-        width: 100%;
-      }
-    `,
-  ],
-})
-export class SnarUiDialogContainerComponent
-  extends CdkDialogContainer
-  implements AfterViewInit
-{
-  ngAfterViewInit(): void {
-    console.log('ngAfterViewInit: ', this._config);
-  }
-}
-@Component({
-  selector: 'snar-ui-dialog-content',
-  standalone: true,
-  imports: [
-    SnarUiDialogActionsDirective,
-    SnarUiDialogCloseDirective,
-    ReactiveFormsModule,
-  ],
-  template: `
-    <h1 snar-ui-dialog-title>Hi</h1>
-    <div snar-ui-dialog-body>
-      <form [formGroup]="signupForm">
-        <div class="space-y-6">
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700"
-              >Email address</label
-            >
-            <div class="mt-1">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                autocomplete="email"
-                formControlName="email"
-                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label
-              for="password"
-              class="block text-sm font-medium text-gray-700"
-              >Password</label
-            >
-            <div class="mt-1">
-              <input
-                type="password"
-                id="password"
-                name="password"
-                autocomplete="current-password"
-                formControlName="password"
-                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-              />
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-    <div snar-ui-dialog-actions>
-      <button
-        type="button"
-        class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        [snar-ui-dialog-close]="signupForm.value"
-      >
-        Ok
-      </button>
-      <button
-        type="button"
-        class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-      >
-        Cancel
-      </button>
-    </div>
-  `,
-  styles: [
-    `
-      :host {
-        display: block;
+        @apply block h-full w-full;
       }
     `,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DialogContentComponent {
+export class SnarUiDialogContainerComponent extends CdkDialogContainer {}
+@Component({
+  standalone: true,
+  imports: [
+    SnarUiDialogActionsDirective,
+    SnarUiDialogCloseDirective,
+    SnarUiDialogHeaderDirective,
+    ReactiveFormsModule,
+  ],
+  template: `
+    <div
+      class="flex h-full flex-col divide-y divide-gray-200 bg-white shadow-xl"
+    >
+      <div snar-ui-dialog-header>
+        <h2
+          class="text-base font-semibold leading-6 text-gray-900"
+          id="slide-over-title"
+        >
+          Sign-up now
+        </h2>
+        <div class="ml-3 flex h-7 items-center">
+          <button
+            type="button"
+            class="relative rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            snarUiDialogClose
+          >
+            <span class="absolute -inset-2.5"></span>
+            <span class="sr-only">Close panel</span>
+            <svg
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="relative pt-6 flex-1 px-4 sm:px-6">
+        <form [formGroup]="signupForm">
+          <div class="space-y-6">
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700"
+                >Email address</label
+              >
+              <div class="mt-1">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  autocomplete="email"
+                  formControlName="email"
+                  class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
+                >Password</label
+              >
+              <div class="mt-1">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  autocomplete="current-password"
+                  formControlName="password"
+                  class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div snar-ui-dialog-actions>
+        <button
+          type="button"
+          class="rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:ring-gray-400"
+          snarUiDialogClose
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="ml-4 inline-flex justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          [snar-ui-dialog-close]="signupForm.value"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SignupFormSlideOverComponent {
   fb = inject(FormBuilder);
 
   signupForm = this.fb.group({
