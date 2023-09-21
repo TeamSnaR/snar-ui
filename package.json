@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "start:playground": "nx serve playground",
-    "affected:build": "nx affected --target=build",
-    "affected:lint": "nx affected --target=lint",
-    "affected:test": "nx affected --target=test",
+    "affected:build": "nx affected --target=build --uncommitted",
+    "affected:lint": "nx affected --target=lint --uncommitted",
+    "affected:test": "nx affected --target=test --uncommitted",
+    "affected": "nx affected -t lint test build --uncommitted",
     "format:check": "nx format:check --uncommitted",
     "format:write": "nx format:write --uncommitted",
     "prepare": "husky install"
