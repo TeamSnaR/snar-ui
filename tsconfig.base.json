@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@team-snar/snar-ui": ["libs/shared/snar-ui/src/index.ts"],
+      "@team-snar/snar-ui/sui-dialog": [
+        "libs/shared/snar-ui/sui-dialog/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
