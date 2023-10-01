@@ -20,7 +20,7 @@ import { AnimationEvent } from '@angular/animations';
   styles: [
     `
       :host {
-        @apply block h-full w-full;
+        @apply w-full;
       }
     `,
   ],

@@ -28,10 +28,9 @@ export class SuiDialogService {
       {
         ...config,
         positionStrategy: this.#cdkOverlay.position().global().end(),
-        scrollStrategy: this.#cdkOverlay.scrollStrategies.block(),
         container: SuiDialogContainerComponent,
         data,
-        panelClass: ['h-full', 'pointer-events-auto', 'max-w-md', 'w-screen'],
+        panelClass: ['pointer-events-auto', 'max-w-md', 'w-screen'],
         hasBackdrop: true,
         disableClose: true,
         closeOnOverlayDetachments: false,
