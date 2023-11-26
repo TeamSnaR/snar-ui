@@ -18,6 +18,7 @@
       "inputs": ["production", "^production"]
     },
     "test": {
+      "dependsOn": ["build"],
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     },
     "lint": {
